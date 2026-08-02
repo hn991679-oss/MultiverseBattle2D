@@ -90,18 +90,61 @@ function showSkins(name){
 
 
 
+// ======================
+// TEAM SELECT SYSTEM
+// ======================
+
+let selectMode = "player";
+
+function selectModeSlot(mode){
+
+    selectMode = mode;
+
+    console.log(
+        "Đang chọn:",
+        mode
+    );
+
+}
+
+
 function chooseCharacter(name){
 
     if(!characters[name])
         return;
 
 
-    game.player=name;
+    if(selectMode === "player"){
+        game.player = name;
+    }
 
 
-    showSkins(name);
+    if(selectMode === "ally"){
+        game.ally = name;
+    }
 
 
-    updateMenu();
+    if(selectMode === "boss"){
+        game.boss = name;
+    }
+
+
+    updateTeamUI();
+
+}
+
+
+function updateTeamUI(){
+
+    document.getElementById("playerName")
+    .innerHTML = game.player;
+
+
+    document.getElementById("allyName")
+    .innerHTML = game.ally;
+
+
+    document.getElementById("bossName")
+    .innerHTML = game.boss;
 
 }
