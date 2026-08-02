@@ -148,3 +148,37 @@ function updateTeamUI(){
     .innerHTML = game.boss;
 
 }
+// ======================
+// BATTLE DATA
+// ======================
+
+let battle = {
+
+    player:null,
+
+    ally:null,
+
+    enemy:null
+
+};
+
+
+// ======================
+// START BATTLE
+// ======================
+
+function startBattle(){
+
+    battle.player = characters[game.player];
+
+    battle.ally = characters[game.ally];
+
+    battle.enemy = characters[game.boss];
+
+
+    console.log(
+        "🔥 START 2 VS 1",
+        battle
+    );
+
+}
