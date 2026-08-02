@@ -1,252 +1,182 @@
-// ============================
-// MULTIVERSE BATTLE 2D
-// Engine v2
-// ============================
+// ======================
+// MULTIVERSE BATTLE MENU
+// ======================
 
-const game={
 
-player:"Rick",
+let game = {
 
-ally:"Morty",
+    player: "Rick",
+    ally: "Morty",
+    boss: "Sukuna",
 
-enemy:"Gojo",
+    difficulty: "Normal",
 
-hp:100,
-maxHp:100,
-
-enemyHp:100,
-enemyMaxHp:100,
-
-rage:0,
-
-gold:0,
-
-stage:1,
-
-difficulty:"Normal",
-
-copySkill:false,
-
-transform:false
-
+    gold: 0
 };
 
-// Danh sách boss
 
-const bosses=[
+let selectedSlot = "player";
 
-"Gojo",
-"Goku",
-"Naruto",
-"Sasuke",
-"Ichigo",
-"Luffy",
-"Ben10",
-"Doraemon",
-"Vegeta",
-"Madara",
-"Sukuna",
-"Tanjiro",
-"Yuta",
-"Levi",
-"Eren"
 
-];
+// ======================
+// CHỌN SLOT
+// ======================
 
-//====================
+function selectSlot(slot){
 
-function updateUI(){
+    selectedSlot = slot;
 
-document.querySelector("#playerHealth .health-fill").style.width=game.hp+"%";
-
-document.querySelector("#enemyHealth .health-fill").style.width=game.enemyHp+"%";
-
-document.querySelector("#playerRage .rage-fill").style.width=game.rage+"%";
-
-document.getElementById("goldUI").innerHTML="🟡 "+game.gold;
+    console.log(
+        "Slot:",
+        slot
+    );
 
 }
 
-//====================
-// Đánh thường
 
-function attack(){
+// ======================
+// CHỌN NHÂN VẬT
+// ======================
 
-game.enemyHp-=8;
+function chooseCharacter(name){
 
-game.rage+=8;
+    if(!characters[name])
+        return;
 
-enemyAttack();
 
-checkBattle();
+    if(selectedSlot === "player"){
 
-updateUI();
+        game.player = name;
 
-}
+    }
 
-//====================
-// Skill 1
 
-function skill1(){
+    if(selectedSlot === "ally"){
 
-game.enemyHp-=20;
+        game.ally = name;
 
-game.rage+=15;
+    }
 
-enemyAttack();
 
-checkBattle();
+    if(selectedSlot === "boss"){
 
-updateUI();
+        game.boss = name;
 
-}
+    }
 
-//====================
-// Skill 2
 
-function skill2(){
-
-game.enemyHp-=35;
-
-game.rage+=25;
-
-enemyAttack();
-
-checkBattle();
-
-updateUI();
+    updateMenu();
 
 }
 
-//====================
-// Ultimate
 
-function ultimate(){
+// ======================
+// HIỂN THỊ NHÂN VẬT
+// ======================
 
-if(game.rage<100){
+function updateMenu(){
 
-alert("Chưa đủ nộ!");
+    console.log(
+`
+⚔️ MULTIVERSE BATTLE
 
-return;
+PLAYER:
+🧍 ${game.player}
 
-}
+ALLY AI:
+🤖 ${game.ally}
 
-game.enemyHp-=60;
+VS
 
-game.rage=0;
+BOSS AI:
+👹 ${game.boss}
 
-transform();
-
-enemyAttack();
-
-checkBattle();
-
-updateUI();
-
-}
-
-//====================
-
-function transform(){
-
-game.transform=true;
-
-if(game.player=="Rick"){
-
-alert("Rick Prime!");
+DIFFICULTY:
+🔥 ${game.difficulty}
+`
+    );
 
 }
 
-else{
 
-alert("Evil Morty!");
+// ======================
+// CHỌN NHANH
+// ======================
 
-}
 
-}
+function chooseRick(){
 
-//====================
-// Rick hút DNA
+    game.player="Rick";
+    game.ally="Morty";
 
-function copyDNA(){
-
-if(game.player!="Rick"){
-
-alert("Chỉ Rick dùng được!");
-
-return;
+    updateMenu();
 
 }
 
-alert("Đã lấy DNA của "+game.enemy);
 
-game.copySkill=true;
+function chooseMorty(){
 
-}
+    game.player="Morty";
+    game.ally="Rick";
 
-//====================
-// Dùng skill boss
-
-function bossSkill(){
-
-if(!game.copySkill){
-
-alert("Chưa lấy DNA!");
-
-return;
+    updateMenu();
 
 }
 
-game.enemyHp-=45;
 
-alert("Dùng skill của "+game.enemy);
+// ======================
+// ĐỘ KHÓ
+// ======================
 
-checkBattle();
+function setEasy(){
 
-updateUI();
-
-}
-
-//====================
-
-function enemyAttack(){
-
-game.hp-=Math.floor(Math.random()*8)+5;
+    game.difficulty="Easy";
 
 }
 
-//====================
 
-function checkBattle(){
+function setNormal(){
 
-if(game.hp<=0){
-
-alert("Thua!");
-
-location.reload();
+    game.difficulty="Normal";
 
 }
 
-if(game.enemyHp<=0){
 
-game.gold+=300;
+function setHard(){
 
-game.stage++;
-
-game.enemy=bosses[Math.floor(Math.random()*bosses.length)];
-
-game.enemyHp=100;
-
-alert("Qua màn "+game.stage);
+    game.difficulty="Hard";
 
 }
 
+
+// ======================
+// BẮT ĐẦU TRẬN
+// ======================
+
+function startBattle(){
+
+
+console.log(
+`
+🔥 BATTLE START 🔥
+
+${game.player}
++
+${game.ally}
+
+        VS
+
+${game.boss}
+
+
+MODE:
+2 VS 1
+
+DIFFICULTY:
+${game.difficulty}
+
+`
+);
+
+
 }
-
-//====================
-
-window.onload=()=>{
-
-updateUI();
-
-};
