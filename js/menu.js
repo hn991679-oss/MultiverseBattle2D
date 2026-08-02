@@ -45,3 +45,63 @@ function setHard(){
     game.difficulty="Hard";
 
 }
+// ======================
+// SKIN SELECT
+// ======================
+
+function showSkins(name){
+
+    let box =
+    document.getElementById("skinList");
+
+
+    box.innerHTML="";
+
+
+    let skins =
+    characters[name].skins;
+
+
+    for(let skin in skins){
+
+        let btn =
+        document.createElement("button");
+
+
+        btn.innerHTML =
+        skin;
+
+
+        btn.onclick=function(){
+
+            console.log(
+            "Chọn skin:",
+            skin
+            );
+
+        };
+
+
+        box.appendChild(btn);
+
+    }
+
+}
+
+
+
+function chooseCharacter(name){
+
+    if(!characters[name])
+        return;
+
+
+    game.player=name;
+
+
+    showSkins(name);
+
+
+    updateMenu();
+
+}
