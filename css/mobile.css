@@ -1,0 +1,126 @@
+/* ===== Điều khiển Mobile ===== */
+
+#mobileControls{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    pointer-events:none;
+}
+
+/* Joystick */
+
+#joystick{
+
+    position:absolute;
+
+    left:30px;
+    bottom:30px;
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+
+    pointer-events:auto;
+
+}
+
+#stick{
+
+    width:60px;
+    height:60px;
+
+    margin:45px;
+
+    border-radius:50%;
+
+    background:white;
+
+}
+
+/* Nút đánh */
+
+.attackBtn{
+
+    position:absolute;
+
+    right:40px;
+    bottom:50px;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:#ff3b30;
+
+    color:white;
+
+    font-size:34px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    pointer-events:auto;
+
+}
+
+/* Nút kỹ năng */
+
+.skillBtn{
+
+    position:absolute;
+
+    width:75px;
+    height:75px;
+
+    border-radius:50%;
+
+    background:#2d9cff;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:26px;
+
+    pointer-events:auto;
+
+}
+
+#skill1{
+
+    right:150px;
+    bottom:150px;
+
+}
+
+#skill2{
+
+    right:240px;
+    bottom:80px;
+
+}
+
+#ultimate{
+
+    right:130px;
+    bottom:250px;
+
+    width:95px;
+    height:95px;
+
+    background:gold;
+
+    color:black;
+
+    font-weight:bold;
+
+}
