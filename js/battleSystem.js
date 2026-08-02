@@ -1,0 +1,67 @@
+// =======================
+// BATTLE SYSTEM
+// =======================
+
+function normalAttack(){
+
+    attack();
+
+}
+
+function useSkill1(){
+
+    skill1();
+
+}
+
+function useSkill2(){
+
+    skill2();
+
+}
+
+function useUltimate(){
+
+    ultimate();
+
+}
+
+// Rick hút DNA
+
+function useCopySkill(){
+
+    copyDNA();
+
+}
+
+// Dùng kỹ năng đã cướp
+
+function useBossSkill(){
+
+    bossSkill();
+
+}
+
+// AI Morty hỗ trợ
+
+function allyAttack(){
+
+    if(game.ally=="Morty"){
+
+        game.enemyHp-=5;
+
+    }
+
+    else{
+
+        game.enemyHp-=7;
+
+    }
+
+    checkBattle();
+
+    updateUI();
+
+}
+
+setInterval(allyAttack,3000);
