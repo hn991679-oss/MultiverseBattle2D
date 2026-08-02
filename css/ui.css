@@ -244,3 +244,51 @@ button:hover{
     }
 
 }
+.characterList{
+
+    margin-top:40px;
+
+    background:#111;
+
+    border:2px solid #333;
+
+    border-radius:20px;
+
+    padding:20px;
+
+}
+
+
+.characters{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:15px;
+
+}
+
+
+.characters button{
+
+    min-width:120px;
+
+}
+
+
+#skinList{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
