@@ -1,66 +1,246 @@
-#ui{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
+/* ======================
+   CHARACTER SELECT UI
+====================== */
+
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
-.health-bar{
-    position:absolute;
-    top:20px;
-    width:300px;
-    height:25px;
-    background:#333;
-    border:2px solid white;
-    border-radius:8px;
+
+body{
+
+    margin:0;
+    background:
+    radial-gradient(circle,#333,#050505);
+
+    color:white;
+
 }
 
-#playerHealth{
-    left:20px;
+
+/* MENU */
+
+#characterMenu{
+
+    min-height:100vh;
+    text-align:center;
+    padding:30px;
+
 }
 
-#enemyHealth{
-    right:20px;
+
+#characterMenu h1{
+
+    font-size:45px;
+    letter-spacing:3px;
+
+    text-shadow:
+    0 0 10px red,
+    0 0 20px orange;
+
 }
 
-.health-fill{
-    width:100%;
-    height:100%;
-    background:#00ff44;
+
+/* TEAM AREA */
+
+.teams{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:25px;
+
+    margin-top:40px;
+
 }
 
-.rage-bar{
-    position:absolute;
-    top:55px;
+
+/* CARD */
+
+.slot{
+
     width:220px;
-    height:15px;
-    background:#444;
+    height:330px;
+
+    background:
+    linear-gradient(
+        160deg,
+        #222,
+        #080808
+    );
+
+    border:3px solid #555;
+
     border-radius:20px;
-    overflow:hidden;
+
+    padding:20px;
+
+
+    box-shadow:
+    0 0 20px black;
+
+
+    transition:.3s;
+
 }
 
-#playerRage{
-    left:20px;
+
+.slot:hover{
+
+    transform:translateY(-10px);
+
+    border-color:red;
+
+    box-shadow:
+    0 0 30px red;
+
 }
 
-#enemyRage{
-    right:20px;
+
+
+.slot h2{
+
+    color:#ffd700;
+
 }
 
-.rage-fill{
-    width:0%;
-    height:100%;
-    background:gold;
+
+/* IMAGE */
+
+.slot img{
+
+    width:150px;
+    height:150px;
+
+    object-fit:contain;
+
+    filter:
+    drop-shadow(0 0 15px cyan);
+
 }
 
-#goldUI{
-    position:absolute;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    color:gold;
-    font-size:24px;
+
+
+/* VS */
+
+.vs{
+
+    font-size:60px;
+
     font-weight:bold;
+
+    color:red;
+
+
+    text-shadow:
+
+    0 0 10px red,
+    0 0 30px orange;
+
+}
+
+
+
+/* BUTTON */
+
+button{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 25px;
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #ff0000,
+    #ff9900
+    );
+
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+
+    box-shadow:
+    0 0 15px red;
+
+
+    transition:.2s;
+
+}
+
+
+button:hover{
+
+    transform:scale(1.1);
+
+}
+
+
+
+/* START BUTTON */
+
+
+.start{
+
+    margin-top:40px;
+
+    font-size:25px;
+
+    padding:18px 60px;
+
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #ff0000,
+    #700000
+    );
+
+
+    animation:pulse 1.5s infinite;
+
+}
+
+
+
+@keyframes pulse{
+
+    50%{
+
+        box-shadow:
+        0 0 40px red;
+
+    }
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .teams{
+
+        flex-direction:column;
+
+    }
+
+
+    .vs{
+
+        transform:rotate(90deg);
+
+    }
+
 }
