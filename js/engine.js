@@ -199,3 +199,111 @@ function gameLoop(){
 }
 
 gameLoop();
+// ======================
+// GAME ENGINE
+// ======================
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const world = {
+
+    width:1280,
+
+    height:720
+
+};
+
+
+// ======================
+// LOAD MAP
+// ======================
+
+const mapImage = new Image();
+
+
+// ======================
+// LOAD SPRITES
+// ======================
+
+const playerSprite = new Image();
+
+const allySprite = new Image();
+
+const bossSprite = new Image();
+
+
+// ======================
+// DRAW
+// ======================
+
+function drawMap(){
+
+    ctx.drawImage(
+        mapImage,
+        0,
+        0,
+        world.width,
+        world.height
+    );
+
+}
+
+
+function drawCharacters(){
+
+    ctx.drawImage(
+        playerSprite,
+        120,
+        420,
+        120,
+        180
+    );
+
+
+    ctx.drawImage(
+        allySprite,
+        280,
+        420,
+        120,
+        180
+    );
+
+
+    ctx.drawImage(
+        bossSprite,
+        980,
+        420,
+        120,
+        180
+    );
+
+}
+
+
+
+// ======================
+// GAME LOOP
+// ======================
+
+function gameLoop(){
+
+    ctx.clearRect(
+        0,
+        0,
+        world.width,
+        world.height
+    );
+
+
+    drawMap();
+
+    drawCharacters();
+
+
+    requestAnimationFrame(gameLoop);
+
+}
+
+
+gameLoop();
