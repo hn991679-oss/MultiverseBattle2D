@@ -81,3 +81,33 @@ function drawPlayer(){
     }
 
 }
+let playerX = 120;
+
+let playerY = 420;
+
+
+function moveLeft(){
+
+    playerX -= 15;
+
+}
+
+
+function moveRight(){
+
+    playerX += 15;
+
+}
+
+
+function jump(){
+
+    playerY -= 100;
+
+    setTimeout(function(){
+
+        playerY = 420;
+
+    },300);
+
+}
