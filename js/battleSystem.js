@@ -96,3 +96,36 @@ function checkHit(){
     }
 
 }
+// ======================
+// BOSS ATTACK
+// ======================
+
+let bossAttackCooldown = 0;
+
+function bossAttack(){
+
+    if(bossAttackCooldown > 0){
+
+        bossAttackCooldown--;
+
+        return;
+
+    }
+
+    let distance = Math.abs(bossX - playerX);
+
+    if(distance < 150){
+
+        playerHP -= 3;
+
+        if(playerHP < 0){
+
+            playerHP = 0;
+
+        }
+
+        bossAttackCooldown = 40;
+
+    }
+
+}
