@@ -74,3 +74,25 @@ function updateHP(){
         bossHP + "%";
 
 }
+// ======================
+// HIT SYSTEM
+// ======================
+
+function checkHit(){
+
+    if(!attacking)
+        return;
+
+    let distance =
+        Math.abs(playerX-980);
+
+    if(distance<170){
+
+        bossHP -= 5;
+
+        if(bossHP<0)
+            bossHP=0;
+
+    }
+
+}
