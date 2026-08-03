@@ -177,6 +177,7 @@ function startBattle(){
 
 
     loadMap();
+    spawnCharacters();
     console.log(
         "🔥 START 2 VS 1",
         battle
