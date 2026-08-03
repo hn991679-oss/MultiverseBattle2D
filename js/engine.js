@@ -293,7 +293,25 @@ function drawCharacters(){
 }
 
 
+if(attacking){
 
+    ctx.strokeStyle="yellow";
+
+    ctx.lineWidth=6;
+
+    ctx.strokeRect(
+
+        playerX+90,
+
+        playerY+40,
+
+        70,
+
+        70
+
+    );
+
+}
 // ======================
 // GAME LOOP
 // ======================
