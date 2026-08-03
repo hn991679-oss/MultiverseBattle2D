@@ -209,6 +209,7 @@ if(movingRight){
 
 }
 
+updateHP();
 gameLoop();
 // ======================
 // GAME ENGINE
