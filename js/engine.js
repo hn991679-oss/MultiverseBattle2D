@@ -275,12 +275,12 @@ function drawCharacters(){
 
 
     ctx.drawImage(
-        allySprite,
-        280,
-        420,
-        120,
-        180
-    );
+    allySprite,
+    allyX,
+    allyY,
+    120,
+    180
+);
 
 
     ctx.drawImage(
