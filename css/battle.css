@@ -120,3 +120,11 @@
     0 0 20px black;
 
 }
+#gameCanvas{
+    display:block;
+    margin:auto;
+    background:#000;
+    width:100%;
+    max-width:1280px;
+    aspect-ratio:16/9;
+}
