@@ -124,3 +124,33 @@
     font-weight:bold;
 
 }
+#mobileControls{
+
+    position:fixed;
+
+    bottom:20px;
+
+    left:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:20px;
+
+}
+
+
+#mobileControls button{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    font-size:25px;
+
+}
