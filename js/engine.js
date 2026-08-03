@@ -322,6 +322,7 @@ function gameLoop(){
     ctx.clearRect(
         updateAllyAI();
     updateBossAI();
+    bossAttack();
         0,
         0,
         world.width,
