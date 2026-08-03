@@ -50,3 +50,20 @@ function updateAllyAI(){
     }
 
 }
+// ======================
+// BOSS AI
+// ======================
+
+let bossX = 980;
+let bossY = 420;
+
+function updateBossAI(){
+
+    // Đi về phía Player
+    if(bossX > playerX + 140){
+
+        bossX -= 2;
+
+    }
+
+}
