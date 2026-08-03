@@ -190,6 +190,17 @@ const ctx = canvas.getContext("2d");
 function gameLoop(){
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(movingLeft){
+
+    playerX -= 5;
+
+}
+
+if(movingRight){
+
+    playerX += 5;
+
+}
 
     drawMap();
     drawCharacters();
