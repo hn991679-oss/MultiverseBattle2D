@@ -33,3 +33,20 @@ function drawEnemy(){
         enemy.size
     );
 }
+// ======================
+// ALLY AI
+// ======================
+
+let allyX = 280;
+let allyY = 420;
+
+function updateAllyAI(){
+
+    // Đi về phía Boss
+    if(allyX < 900){
+
+        allyX += 2;
+
+    }
+
+}
