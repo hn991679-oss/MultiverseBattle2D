@@ -182,3 +182,26 @@ function startBattle(){
     );
 
 }
+// ======================
+// LOAD MAP
+// ======================
+
+function loadMap(){
+
+    let map =
+    getCharacterMap(game.boss);
+
+    let gameMap =
+    document.getElementById("gameMap");
+
+
+    gameMap.style.display="block";
+
+    gameMap.style.backgroundImage =
+    "url('"+map.image+"')";
+
+
+    document.getElementById("mapName")
+    .innerHTML = map.name;
+
+}
