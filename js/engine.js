@@ -284,12 +284,12 @@ function drawCharacters(){
 
 
     ctx.drawImage(
-        bossSprite,
-        980,
-        420,
-        120,
-        180
-    );
+    bossSprite,
+    bossX,
+    bossY,
+    120,
+    180
+);
 
 }
 
