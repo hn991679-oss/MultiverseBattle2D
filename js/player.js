@@ -111,3 +111,18 @@ function jump(){
     },300);
 
 }
+let movingLeft = false;
+let movingRight = false;
+
+function moveLeft(){
+    movingLeft = true;
+}
+
+function moveRight(){
+    movingRight = true;
+}
+
+function stopMove(){
+    movingLeft = false;
+    movingRight = false;
+}
