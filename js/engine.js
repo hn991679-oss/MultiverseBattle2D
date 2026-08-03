@@ -202,6 +202,7 @@ if(movingRight){
 
 }
 
+    checkHit();
     drawMap();
     drawCharacters();
 
