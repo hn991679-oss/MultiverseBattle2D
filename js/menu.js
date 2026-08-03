@@ -176,6 +176,7 @@ function startBattle(){
     battle.enemy = characters[game.boss];
 
 
+    loadMap();
     console.log(
         "🔥 START 2 VS 1",
         battle
