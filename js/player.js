@@ -126,3 +126,6 @@ function stopMove(){
     movingLeft = false;
     movingRight = false;
 }
+let playerHP = 100;
+
+let bossHP = 100;
