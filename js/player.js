@@ -129,3 +129,23 @@ function stopMove(){
 let playerHP = 100;
 
 let bossHP = 100;
+// ======================
+// ATTACK
+// ======================
+
+let attacking = false;
+
+function attack(){
+
+    if(attacking)
+        return;
+
+    attacking = true;
+
+    setTimeout(function(){
+
+        attacking = false;
+
+    },250);
+
+}
