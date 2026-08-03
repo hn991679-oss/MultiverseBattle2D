@@ -78,3 +78,45 @@
 100%{transform:translateX(0);}
 
 }
+/* ======================
+   GAME MAP
+====================== */
+
+#gameMap{
+
+    width:100vw;
+    height:100vh;
+
+    display:none;
+
+    background-size:cover;
+
+    background-position:center;
+
+    position:relative;
+
+}
+
+
+#mapName{
+
+    position:absolute;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:35px;
+
+    color:white;
+
+    font-weight:bold;
+
+    text-shadow:
+
+    0 0 10px black,
+    0 0 20px black;
+
+}
