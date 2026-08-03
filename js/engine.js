@@ -320,6 +320,7 @@ if(attacking){
 function gameLoop(){
 
     ctx.clearRect(
+        updateAllyAI();
         0,
         0,
         world.width,
