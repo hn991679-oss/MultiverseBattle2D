@@ -154,3 +154,38 @@
     font-size:25px;
 
 }
+#joystick{
+
+    position:fixed;
+
+    left:30px;
+
+    bottom:30px;
+
+    width:140px;
+
+    height:140px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+}
+
+#stick{
+
+    position:absolute;
+
+    left:45px;
+
+    top:45px;
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:white;
+
+}
