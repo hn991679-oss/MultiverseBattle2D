@@ -178,6 +178,17 @@ function startBattle(){
 
     loadMap();
     spawnCharacters();
+    mapImage.src =
+getCharacterMap(game.boss).image;
+
+playerSprite.src =
+characters[game.player].sprite;
+
+allySprite.src =
+characters[game.ally].sprite;
+
+bossSprite.src =
+characters[game.boss].sprite;
     console.log(
         "🔥 START 2 VS 1",
         battle
