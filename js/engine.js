@@ -294,6 +294,25 @@ function drawCharacters(){
 }
 
 
+if(bossAttackCooldown > 30){
+
+    ctx.strokeStyle = "red";
+
+    ctx.lineWidth = 5;
+
+    ctx.strokeRect(
+
+        bossX - 40,
+
+        bossY + 40,
+
+        70,
+
+        70
+
+    );
+
+}
 if(attacking){
 
     ctx.strokeStyle="yellow";
