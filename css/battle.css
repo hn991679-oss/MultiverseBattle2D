@@ -128,3 +128,49 @@
     max-width:1280px;
     aspect-ratio:16/9;
 }
+#battleUI{
+
+    position:fixed;
+
+    top:15px;
+
+    left:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:20px;
+
+}
+
+.hpBox{
+
+    width:320px;
+
+}
+
+.hpBar{
+
+    width:100%;
+
+    height:25px;
+
+    background:#444;
+
+    border:2px solid white;
+
+}
+
+#playerHP,
+#bossHP{
+
+    width:100%;
+
+    height:100%;
+
+    background:#00ff00;
+
+}
