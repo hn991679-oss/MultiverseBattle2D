@@ -240,12 +240,12 @@ const bossSprite = new Image();
 function drawMap(){
 
     ctx.drawImage(
-        mapImage,
-        0,
-        0,
-        world.width,
-        world.height
-    );
+    playerSprite,
+    playerX,
+    playerY,
+    120,
+    180
+);
 
 }
 
