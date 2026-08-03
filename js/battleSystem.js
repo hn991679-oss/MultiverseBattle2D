@@ -65,3 +65,12 @@ function allyAttack(){
 }
 
 setInterval(allyAttack,3000);
+function updateHP(){
+
+    document.getElementById("playerHP").style.width =
+        playerHP + "%";
+
+    document.getElementById("bossHP").style.width =
+        bossHP + "%";
+
+}
