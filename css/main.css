@@ -26,3 +26,63 @@ html,body{
     display:block;
     background:#1b1b1b;
 }
+#startScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle,#222,#000);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    z-index:9999;
+
+}
+
+#startScreen h1{
+
+    font-size:55px;
+
+    text-shadow:
+    0 0 20px cyan,
+    0 0 40px blue;
+
+}
+
+#startScreen p{
+
+    font-size:22px;
+
+    color:#ddd;
+
+}
+
+#startScreen button{
+
+    margin-top:30px;
+
+    padding:18px 60px;
+
+    font-size:25px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(45deg,#ff4d00,#ffcc00);
+
+    color:white;
+
+    cursor:pointer;
+
+}
