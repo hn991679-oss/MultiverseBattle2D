@@ -1,262 +1,1350 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="iPad Sign">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<title>iPad Sign</title>
 
-<title>Multiverse Battle 2D</title>
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/ui.css">
-<link rel="stylesheet" href="css/battle.css">
-<link rel="stylesheet" href="css/mobile.css">
+html,body{
+    margin:0;
+    min-height:100%;
+    background:#08090d;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+    "Segoe UI",sans-serif;
+}
 
+body{
+    padding:
+        env(safe-area-inset-top)
+        0
+        env(safe-area-inset-bottom);
+}
+
+button,input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    max-width:1050px;
+    min-height:100vh;
+    margin:auto;
+    padding:20px;
+}
+
+/* Đầu trang */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:#fff;
+    color:#000;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+    font-size:23px;
+}
+
+.title{
+    font-size:23px;
+    font-weight:800;
+}
+
+.subtitle{
+    color:#777b87;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.status{
+    padding:9px 14px;
+    border:1px solid #292c35;
+    border-radius:20px;
+    background:#15171e;
+    color:#aeb3bf;
+    font-size:12px;
+}
+
+/* Điều hướng */
+
+.nav{
+    display:flex;
+    gap:7px;
+    padding:6px;
+    border:1px solid #252832;
+    background:#12141a;
+    border-radius:18px;
+    margin-bottom:18px;
+}
+
+.nav button{
+    flex:1;
+    border:0;
+    border-radius:13px;
+    padding:12px;
+    color:#858995;
+    background:transparent;
+    font-weight:700;
+}
+
+.nav button.active{
+    background:#fff;
+    color:#000;
+}
+
+/* Trang */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* Thẻ */
+
+.card{
+    background:#111319;
+    border:1px solid #252832;
+    border-radius:23px;
+    padding:20px;
+    margin-bottom:16px;
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.card-subtitle{
+    color:#777b87;
+    font-size:13px;
+    margin-bottom:16px;
+}
+
+/* Chọn IPA */
+
+.dropzone{
+    min-height:210px;
+    border:2px dashed #393d48;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+}
+
+.dropzone:active{
+    transform:scale(.99);
+}
+
+.drop-icon{
+    width:65px;
+    height:65px;
+    border-radius:20px;
+    background:#1d2028;
+    display:grid;
+    place-items:center;
+    font-size:32px;
+    margin-bottom:12px;
+}
+
+.drop-title{
+    font-weight:800;
+    font-size:17px;
+}
+
+.drop-subtitle{
+    color:#777b87;
+    font-size:13px;
+    margin-top:7px;
+}
+
+input[type=file]{
+    display:none;
+}
+
+/* Tệp */
+
+.file{
+    display:none;
+    align-items:center;
+    gap:13px;
+    padding:14px;
+    margin-top:14px;
+    background:#1a1c23;
+    border-radius:16px;
+}
+
+.file.show{
+    display:flex;
+}
+
+.file-icon{
+    width:46px;
+    height:46px;
+    border-radius:13px;
+    background:#292d37;
+    display:grid;
+    place-items:center;
+    font-size:22px;
+}
+
+.file-info{
+    flex:1;
+    min-width:0;
+}
+
+.file-name{
+    font-weight:750;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.file-size{
+    color:#777b87;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.file-remove{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:11px;
+    background:#2b2e37;
+    color:#fff;
+    font-size:20px;
+}
+
+/* Danh sách */
+
+.app-item{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:14px;
+    margin-bottom:10px;
+    border-radius:17px;
+    background:#191b22;
+}
+
+.app-icon{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    background:#282c35;
+    display:grid;
+    place-items:center;
+    font-size:23px;
+}
+
+.app-info{
+    flex:1;
+    min-width:0;
+}
+
+.app-name{
+    font-weight:750;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.app-meta{
+    color:#777b87;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.small-button{
+    border:0;
+    border-radius:11px;
+    padding:10px 13px;
+    background:#292c35;
+    color:#fff;
+}
+
+/* Thông tin */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.info{
+    background:#1a1c23;
+    border-radius:15px;
+    padding:14px;
+}
+
+.info-label{
+    color:#777b87;
+    font-size:11px;
+}
+
+.info-value{
+    margin-top:6px;
+    font-size:14px;
+    font-weight:700;
+    word-break:break-word;
+}
+
+/* Chứng chỉ */
+
+.certificate{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#1a1c23;
+    padding:14px;
+    border-radius:16px;
+    margin-bottom:14px;
+}
+
+.certificate-icon{
+    width:46px;
+    height:46px;
+    border-radius:13px;
+    background:#292d37;
+    display:grid;
+    place-items:center;
+    font-size:21px;
+}
+
+.certificate-info{
+    flex:1;
+    min-width:0;
+}
+
+.certificate-name{
+    font-weight:750;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.certificate-state{
+    color:#777b87;
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* Nút */
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+.button{
+    flex:1;
+    border:0;
+    border-radius:15px;
+    padding:15px;
+    font-weight:800;
+    background:#fff;
+    color:#000;
+}
+
+.button.secondary{
+    background:#252832;
+    color:#fff;
+}
+
+.button:disabled{
+    opacity:.35;
+}
+
+/* Tiến trình */
+
+.progress-box{
+    display:none;
+    margin-top:17px;
+}
+
+.progress-box.show{
+    display:block;
+}
+
+.progress-header{
+    display:flex;
+    justify-content:space-between;
+    color:#969ba8;
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.progress{
+    height:8px;
+    background:#292c34;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:#fff;
+    transition:.3s;
+}
+
+/* Kết quả */
+
+.result{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    border-radius:16px;
+    background:#1a1c23;
+}
+
+.result.show{
+    display:block;
+}
+
+.result-title{
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.download{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    border-radius:14px;
+    padding:14px;
+    background:#fff;
+    color:#000;
+    font-weight:800;
+}
+
+/* Trống */
+
+.empty{
+    padding:50px 20px;
+    text-align:center;
+    color:#777b87;
+}
+
+.empty-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+/* Điện thoại */
+
+@media(max-width:650px){
+
+    .app{
+        padding:14px;
+    }
+
+    .status{
+        display:none;
+    }
+
+    .title{
+        font-size:20px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+}
+</style>
 </head>
 
-    <title>Multiverse Battle 2D</title>
-
-</head>
-    <div id="gameMap">
-
-    <div id="mapName"></div>
-        <div id="player" class="fighter"></div>
-
-<div id="ally" class="fighter"></div>
-
-<div id="boss" class="fighter boss"></div>
-
-</div>
-    <div id="mobileControls">
-
-    <div id="joystick">
-
-        <button ontouchstart="moveLeft()">◀</button>
-
-        <button ontouchstart="moveRight()">▶</button>
-
-        <button ontouchstart="jump()">▲</button>
-
-    </div>
-
-
-    <div id="attackButtons">
-
-        <button ontouchstart="attack()">👊</button>
-
-        <button ontouchstart="skill1()">⚡</button>
-
-        <button ontouchstart="skill2()">🔥</button>
-
-        <button ontouchstart="awaken()">💥</button>
-
-    </div>
-
-</div>
 <body>
 
-    <div id="startScreen">
+<div class="app">
 
-    <h1>⚔️ MULTIVERSE BATTLE 2D</h1>
+<header class="header">
 
-    <p>
-        Player + Ally AI VS Boss AI
-    </p>
+    <div class="brand">
 
-    <button onclick="startGame()">
-        ▶ BẮT ĐẦU
+        <div class="logo">S</div>
+
+        <div>
+            <div class="title">iPad Sign</div>
+            <div class="subtitle">
+                Quản lý và ký ứng dụng
+            </div>
+        </div>
+
+    </div>
+
+    <div id="status" class="status">
+        Sẵn sàng
+    </div>
+
+</header>
+
+
+<nav class="nav">
+
+    <button class="active" data-page="home">
+        Trang chính
     </button>
 
-</div>
+    <button data-page="apps">
+        Ứng dụng
+    </button>
+
+    <button data-page="sign">
+        Ký IPA
+    </button>
+
+</nav>
 
 
-<div id="characterMenu" style="display:none;">
+<!-- Trang chính -->
 
-    <!-- Toàn bộ menu chọn nhân vật của bạn đặt ở đây -->
+<section id="home" class="page active">
 
-</div>
-<div id="game">
+    <div class="card">
 
-    <div id="battleUI">
+        <div class="card-title">
+            Thêm ứng dụng
+        </div>
 
-    <div class="hpBox">
+        <div class="card-subtitle">
+            Chọn tệp IPA từ ứng dụng Tệp trên iPad.
+        </div>
 
-        <span id="playerText">PLAYER</span>
+        <label class="dropzone">
 
-        <div class="hpBar">
+            <input
+                id="ipaInput"
+                type="file"
+                accept=".ipa,application/octet-stream">
 
-            <div id="playerHP"></div>
+            <div class="drop-icon">＋</div>
+
+            <div class="drop-title">
+                Chọn tệp IPA
+            </div>
+
+            <div class="drop-subtitle">
+                Chạm vào đây để chọn tệp
+            </div>
+
+        </label>
+
+
+        <div id="file" class="file">
+
+            <div class="file-icon">
+                📦
+            </div>
+
+            <div class="file-info">
+
+                <div
+                    id="fileName"
+                    class="file-name">
+                </div>
+
+                <div
+                    id="fileSize"
+                    class="file-size">
+                </div>
+
+            </div>
+
+            <button
+                id="removeFile"
+                class="file-remove">
+                ×
+            </button>
 
         </div>
 
     </div>
 
 
-    <div class="hpBox">
+    <div class="card">
 
-        <span id="bossText">BOSS</span>
+        <div class="card-title">
+            Ứng dụng gần đây
+        </div>
 
-        <div class="hpBar">
+        <div id="recentList"></div>
 
-            <div id="bossHP"></div>
+    </div>
+
+</section>
+
+
+<!-- Danh sách -->
+
+<section id="apps" class="page">
+
+    <div class="card">
+
+        <div class="card-title">
+            Thư viện ứng dụng
+        </div>
+
+        <div id="appList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- Ký -->
+
+<section id="sign" class="page">
+
+    <div class="card">
+
+        <div class="card-title">
+            Thông tin IPA
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info">
+                <div class="info-label">Tên tệp</div>
+                <div id="infoName" class="info-value">
+                    Chưa chọn
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="info-label">Dung lượng</div>
+                <div id="infoSize" class="info-value">
+                    --
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="info-label">Định dạng</div>
+                <div class="info-value">
+                    IPA
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="info-label">Trạng thái</div>
+                <div id="infoStatus" class="info-value">
+                    Chưa chọn
+                </div>
+            </div>
 
         </div>
 
     </div>
 
+
+    <div class="card">
+
+        <div class="card-title">
+            Chứng chỉ hợp lệ
+        </div>
+
+        <div class="certificate">
+
+            <div class="certificate-icon">
+                🔐
+            </div>
+
+            <div class="certificate-info">
+
+                <div
+                    id="certificateName"
+                    class="certificate-name">
+                    Chưa chọn
+                </div>
+
+                <div
+                    id="certificateState"
+                    class="certificate-state">
+                    Chọn chứng chỉ của bạn
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                id="chooseCertificate"
+                class="button secondary">
+                Chọn chứng chỉ
+            </button>
+
+            <button
+                id="signButton"
+                class="button"
+                disabled>
+                Ký IPA
+            </button>
+
+        </div>
+
+        <input
+            id="certificateInput"
+            type="file"
+            accept=".p12,.mobileprovision">
+
+
+        <div
+            id="progressBox"
+            class="progress-box">
+
+            <div class="progress-header">
+
+                <span id="progressText">
+                    Đang xử lý
+                </span>
+
+                <span id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="result"
+            class="result">
+
+            <div class="result-title">
+                Kết quả
+            </div>
+
+            <div id="resultContent"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
 </div>
-<canvas id="gameCanvas"></canvas>
-
-<div id="ui">
-
-<div id="goldUI">
-🟡 0
-</div>
-
-<div id="playerHealth"
-class="health-bar">
-
-<div class="health-fill"></div>
-
-</div>
-
-<div id="enemyHealth"
-class="health-bar">
-
-<div class="health-fill"></div>
-
-</div>
-
-<div id="playerRage"
-class="rage-bar">
-
-<div class="rage-fill"></div>
-
-</div>
-
-<div id="enemyRage"
-class="rage-bar">
-
-<div class="rage-fill"></div>
-
-</div>
-
-</div>
 
 
-<div id="arena">
+<script>
+/*
+ * Biến trạng thái.
+ */
 
-<div class="player"></div>
+let ipaFile = null;
+let certificateFile = null;
 
-<div class="ally"></div>
+const storedApps =
+    JSON.parse(
+        localStorage.getItem("ipadSignApps") || "[]"
+    );
 
-<div class="enemy"></div>
 
-</div>
+/*
+ * Định dạng dung lượng.
+ */
+
+function formatSize(bytes){
+
+    if(bytes < 1024)
+        return bytes + " B";
+
+    if(bytes < 1024 * 1024)
+        return (bytes / 1024).toFixed(1) + " KB";
+
+    if(bytes < 1024 * 1024 * 1024)
+        return (bytes / 1024 / 1024).toFixed(1) + " MB";
+
+    return (bytes / 1024 / 1024 / 1024).toFixed(2) + " GB";
+}
 
 
-<div id="mobileControls">
+/*
+ * Chuyển trang.
+ */
 
-<div id="joystick">
+document
+.querySelectorAll(".nav button")
+.forEach(button => {
 
-    <div id="stick"></div>
+    button.addEventListener("click",function(){
 
-</div>
+        document
+        .querySelectorAll(".nav button")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
 
-<div
-class="attackBtn">
+        this.classList.add("active");
 
-⚔️
+        document
+        .querySelectorAll(".page")
+        .forEach(page =>
+            page.classList.remove("active")
+        );
 
-</div>
+        document
+        .getElementById(this.dataset.page)
+        .classList.add("active");
 
-<div
-id="skill1"
-class="skillBtn">
+    });
 
-①
+});
 
-</div>
 
-<div
-id="skill2"
-class="skillBtn">
+/*
+ * Cập nhật trạng thái.
+ */
 
-②
+function setStatus(text){
 
-</div>
+    document
+    .getElementById("status")
+    .textContent = text;
 
-<div
-id="ultimate"
-class="skillBtn">
+}
 
-🔥
 
-</div>
+/*
+ * Chọn IPA.
+ */
 
-</div>
+document
+.getElementById("ipaInput")
+.addEventListener("change",function(){
 
-</div>
+    const file = this.files[0];
 
-<script src="js/characterData.js"></script>
-<script src="js/player.js"></script>
-<script src="js/enemyAI.js"></script>
-<script src="js/battleSystem.js"></script>
-<script src="js/maps.js"></script>
-<script src="js/menu.js"></script>
-<script src="js/engine.js"></script>
+    if(!file)
+        return;
+
+    ipaFile = file;
+
+    document
+    .getElementById("file")
+    .classList.add("show");
+
+    document
+    .getElementById("fileName")
+    .textContent = file.name;
+
+    document
+    .getElementById("fileSize")
+    .textContent = formatSize(file.size);
+
+    document
+    .getElementById("infoName")
+    .textContent = file.name;
+
+    document
+    .getElementById("infoSize")
+    .textContent = formatSize(file.size);
+
+    document
+    .getElementById("infoStatus")
+    .textContent = "Đã chọn";
+
+    setStatus("Đã chọn IPA");
+
+    addStoredApp(file);
+
+    updateButton();
+
+});
+
+
+/*
+ * Xóa IPA.
+ */
+
+document
+.getElementById("removeFile")
+.addEventListener("click",function(){
+
+    ipaFile = null;
+
+    document
+    .getElementById("ipaInput")
+    .value = "";
+
+    document
+    .getElementById("file")
+    .classList.remove("show");
+
+    document
+    .getElementById("infoName")
+    .textContent = "Chưa chọn";
+
+    document
+    .getElementById("infoSize")
+    .textContent = "--";
+
+    document
+    .getElementById("infoStatus")
+    .textContent = "Chưa chọn";
+
+    updateButton();
+
+});
+
+
+/*
+ * Lưu danh sách.
+ */
+
+function saveApps(){
+
+    localStorage.setItem(
+        "ipadSignApps",
+        JSON.stringify(storedApps)
+    );
+
+}
+
+
+/*
+ * Thêm ứng dụng.
+ */
+
+function addStoredApp(file){
+
+    const exists =
+        storedApps.some(
+            item => item.name === file.name
+        );
+
+    if(exists)
+        return;
+
+    storedApps.unshift({
+
+        name:file.name,
+
+        size:file.size,
+
+        date:new Date()
+        .toLocaleString("vi-VN")
+
+    });
+
+    if(storedApps.length > 30)
+        storedApps.pop();
+
+    saveApps();
+
+    renderApps();
+
+}
+
+
+/*
+ * Hiển thị ứng dụng.
+ */
+
+function renderApps(){
+
+    const list =
+        document.getElementById("appList");
+
+    const recent =
+        document.getElementById("recentList");
+
+
+    if(storedApps.length === 0){
+
+        const empty = `
+            <div class="empty">
+                <div class="empty-icon">📱</div>
+                Chưa có ứng dụng
+            </div>
+        `;
+
+        list.innerHTML = empty;
+
+        recent.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">📦</div>
+                Chưa có IPA
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        storedApps
+        .map((item,index) => `
+
+            <div class="app-item">
+
+                <div class="app-icon">
+                    📦
+                </div>
+
+                <div class="app-info">
+
+                    <div class="app-name">
+                        ${escapeHTML(item.name)}
+                    </div>
+
+                    <div class="app-meta">
+                        ${formatSize(item.size)}
+                        ·
+                        ${escapeHTML(item.date)}
+                    </div>
+
+                </div>
+
+                <button
+                    class="small-button"
+                    onclick="deleteApp(${index})">
+                    Xóa
+                </button>
+
+            </div>
+
+        `)
+        .join("");
+
+
+    recent.innerHTML =
+        storedApps
+        .slice(0,5)
+        .map(item => `
+
+            <div class="app-item">
+
+                <div class="app-icon">
+                    📦
+                </div>
+
+                <div class="app-info">
+
+                    <div class="app-name">
+                        ${escapeHTML(item.name)}
+                    </div>
+
+                    <div class="app-meta">
+                        ${formatSize(item.size)}
+                    </div>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+/*
+ * Xóa ứng dụng khỏi danh sách.
+ */
+
+function deleteApp(index){
+
+    storedApps.splice(index,1);
+
+    saveApps();
+
+    renderApps();
+
+}
+
+
+/*
+ * Bảo vệ nội dung hiển thị.
+ */
+
+function escapeHTML(text){
+
+    return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/*
+ * Chọn chứng chỉ.
+ */
+
+document
+.getElementById("chooseCertificate")
+.addEventListener("click",function(){
+
+    document
+    .getElementById("certificateInput")
+    .click();
+
+});
+
+
+document
+.getElementById("certificateInput")
+.addEventListener("change",function(){
+
+    const file = this.files[0];
+
+    if(!file)
+        return;
+
+    certificateFile = file;
+
+    document
+    .getElementById("certificateName")
+    .textContent = file.name;
+
+    document
+    .getElementById("certificateState")
+    .textContent = "Đã chọn";
+
+    updateButton();
+
+});
+
+
+/*
+ * Kích hoạt nút ký.
+ */
+
+function updateButton(){
+
+    document
+    .getElementById("signButton")
+    .disabled =
+        !(ipaFile && certificateFile);
+
+}
+
+
+/*
+ * Gửi IPA tới máy chủ ký.
+ *
+ * Máy chủ cần sử dụng chứng chỉ hợp lệ.
+ */
+
+document
+.getElementById("signButton")
+.addEventListener("click",async function(){
+
+    if(!ipaFile || !certificateFile)
+        return;
+
+
+    const progressBox =
+        document.getElementById("progressBox");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    const progressPercent =
+        document.getElementById("progressPercent");
+
+    const result =
+        document.getElementById("result");
+
+    const resultContent =
+        document.getElementById("resultContent");
+
+
+    progressBox.classList.add("show");
+
+    result.classList.remove("show");
+
+    progressText.textContent =
+        "Đang gửi tệp";
+
+    progressBar.style.width = "20%";
+
+    progressPercent.textContent = "20%";
+
+
+    const formData = new FormData();
+
+    formData.append("ipa",ipaFile);
+
+    formData.append(
+        "certificate",
+        certificateFile
+    );
+
+
+    try{
+
+        /*
+         * Thay đường dẫn này bằng máy chủ ký
+         * của bạn.
+         */
+
+        const response =
+            await fetch("/api/sign",{
+
+                method:"POST",
+
+                body:formData
+
+            });
+
+
+        progressText.textContent =
+            "Đang nhận kết quả";
+
+        progressBar.style.width = "70%";
+
+        progressPercent.textContent = "70%";
+
+
+        if(!response.ok)
+            throw new Error(
+                "Máy chủ ký trả về lỗi."
+            );
+
+
+        const blob =
+            await response.blob();
+
+
+        const downloadURL =
+            URL.createObjectURL(blob);
+
+
+        progressBar.style.width = "100%";
+
+        progressPercent.textContent = "100%";
+
+        progressText.textContent =
+            "Hoàn tất";
+
+
+        resultContent.innerHTML = `
+
+            <a
+                class="download"
+                href="${downloadURL}"
+                download="ung-dung-da-ky.ipa">
+
+                Tải IPA đã ký
+
+            </a>
+
+        `;
+
+        result.classList.add("show");
+
+        document
+        .getElementById("infoStatus")
+        .textContent = "Đã ký";
+
+        setStatus("Hoàn tất");
+
+
+    }catch(error){
+
+        progressBar.style.width = "0%";
+
+        progressPercent.textContent = "0%";
+
+        progressText.textContent =
+            "Chưa kết nối máy chủ";
+
+
+        resultContent.innerHTML = `
+
+            <div style="
+                color:#969ba8;
+                line-height:1.6">
+
+                Chưa có máy chủ ký tại
+                <b>/api/sign</b>.
+
+                <br><br>
+
+                Giao diện đã hoạt động.
+                Để ký IPA thực tế, cần kết nối
+                với máy chủ sử dụng chứng chỉ
+                hợp lệ.
+
+            </div>
+
+        `;
+
+        result.classList.add("show");
+
+        setStatus("Sẵn sàng");
+
+    }
+
+});
+
+
+/*
+ * Khởi tạo.
+ */
+
+renderApps();
+
+</script>
 
 </body>
 </html>
-<div class="characterList">
-
-    <h2>🔥 CHỌN NHÂN VẬT</h2>
-
-    <div class="characters">
-
-        <button onclick="chooseCharacter('Rick')">
-            🧪 Rick
-        </button>
-
-        <button onclick="chooseCharacter('Morty')">
-            🧪 Morty
-        </button>
-
-        <button onclick="chooseCharacter('Gojo')">
-            🌀 Gojo
-        </button>
-
-        <button onclick="chooseCharacter('Goku')">
-            🔥 Goku
-        </button>
-
-        <button onclick="chooseCharacter('Naruto')">
-            🍥 Naruto
-        </button>
-
-        <button onclick="chooseCharacter('Sukuna')">
-            👹 Sukuna
-        </button>
-
-    </div>
-
-
-    <h2>👕 SKIN</h2>
-
-
-    <div id="skinList">
-
-        Chọn nhân vật để xem skin
-
-    </div>
-
-
-</div>
-<canvas id="gameCanvas" width="1280" height="720"></canvas>
-<button ontouchstart="attack()">
-
-👊
-
-</button>
