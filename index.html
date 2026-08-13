@@ -272,3 +272,71 @@
 </script>
 </body>
 </html>
+// Tạo chứng chỉ số tự ký (self-signed) hợp lệ theo định dạng X.509 cho mục đích thử nghiệm
+// Mã này tạo một chứng chỉ số với thuật toán RSA-2048, có hiệu lực 1 năm
+// Không liên kết với bất kỳ CA nào, chỉ hợp lệ trong hệ thống nội bộ
+
+const forge = require('node-forge'); // thư viện forge - cài qua npm install node-forge
+
+// BƯỚC 1: Tạo cặp khóa RSA
+const keys = forge.pki.rsa.generateKeyPair(2048);
+
+// BƯỚC 2: Tạo đối tượng chứng chỉ
+const cert = forge.pki.createCertificate();
+
+// BƯỚC 3: Thiết lập thông tin chủ thể (subject) và cấp phát (issuer) - tự ký nên giống nhau
+const attrs = [
+    { name: 'commonName', value: 'E-Sign Pro Root CA' },
+    { name: 'countryName', value: 'VN' },
+    { name: 'organizationName', value: 'E-Sign Solution' },
+    { name: 'organizationalUnitName', value: 'Certification Division' }
+];
+cert.subject.setAttributes(attrs);
+cert.issuer.setAttributes(attrs);
+
+// BƯỚC 4: Gán khóa công khai cho chứng chỉ
+cert.publicKey = keys.publicKey;
+
+// BƯỚC 5: Thiết lập thời gian hiệu lực (bắt đầu từ hôm qua, hết hạn sau 1 năm)
+const notBefore = new Date();
+notBefore.setDate(notBefore.getDate() - 1);
+const notAfter = new Date();
+notAfter.setFullYear(notAfter.getFullYear() + 1);
+cert.validity.notBefore = notBefore;
+cert.validity.notAfter = notAfter;
+
+// BƯỚC 6: Thiết lập số seri (ngẫu nhiên 20 byte)
+cert.serialNumber = forge.util.bytesToHex(forge.random.getBytesSync(20));
+
+// BƯỚC 7: Ký chứng chỉ bằng khóa riêng (tự ký)
+cert.sign(keys.privateKey, forge.md.sha256.create());
+
+// BƯỚC 8: Xuất chứng chỉ sang định dạng PEM (có thể dùng để cài đặt)
+const pemCert = forge.pki.certificateToPem(cert);
+const pemPrivateKey = forge.pki.privateKeyToPem(keys.privateKey);
+const pemPublicKey = forge.pki.publicKeyToPem(keys.publicKey);
+
+// Xuất kết quả
+console.log('----- CHỨNG CHỈ HỢP LỆ (X.509) -----');
+console.log(pemCert);
+console.log('----- KHÓA RIÊNG TƯ (GIỮ BÍ MẬT) -----');
+console.log(pemPrivateKey);
+console.log('----- KHÓA CÔNG KHAI -----');
+console.log(pemPublicKey);
+
+// Hàm xác minh chứng chỉ (tự kiểm tra)
+function verifyCert(certPem) {
+    try {
+        const certObj = forge.pki.certificateFromPem(certPem);
+        const issuerPubKey = certObj.publicKey; // tự ký nên dùng chính nó
+        const verified = certObj.verify(issuerPubKey);
+        return verified;
+    } catch (e) {
+        return false;
+    }
+}
+
+console.log('Xác minh chứng chỉ: ' + (verifyCert(pemCert) ? '✅ HỢP LỆ (chữ ký đúng)' : '❌ KHÔNG HỢP LỆ'));
+
+// Lưu ý: Để dùng trên web (HTTPS), cần cài chứng chỉ này vào kho tin cậy của hệ điều hành hoặc trình duyệt.
+// Trình duyệt sẽ hiển thị cảnh báo vì không có CA công khai, nhưng vẫn hoạt động cho môi trường nội bộ.
