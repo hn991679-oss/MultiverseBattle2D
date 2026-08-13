@@ -1,1350 +1,274 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="iPad Sign">
-
-<title>iPad Sign</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-    margin:0;
-    min-height:100%;
-    background:#08090d;
-    color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
-    "Segoe UI",sans-serif;
-}
-
-body{
-    padding:
-        env(safe-area-inset-top)
-        0
-        env(safe-area-inset-bottom);
-}
-
-button,input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.app{
-    max-width:1050px;
-    min-height:100vh;
-    margin:auto;
-    padding:20px;
-}
-
-/* Đầu trang */
-
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:20px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo{
-    width:48px;
-    height:48px;
-    border-radius:15px;
-    background:#fff;
-    color:#000;
-    display:grid;
-    place-items:center;
-    font-weight:900;
-    font-size:23px;
-}
-
-.title{
-    font-size:23px;
-    font-weight:800;
-}
-
-.subtitle{
-    color:#777b87;
-    font-size:12px;
-    margin-top:3px;
-}
-
-.status{
-    padding:9px 14px;
-    border:1px solid #292c35;
-    border-radius:20px;
-    background:#15171e;
-    color:#aeb3bf;
-    font-size:12px;
-}
-
-/* Điều hướng */
-
-.nav{
-    display:flex;
-    gap:7px;
-    padding:6px;
-    border:1px solid #252832;
-    background:#12141a;
-    border-radius:18px;
-    margin-bottom:18px;
-}
-
-.nav button{
-    flex:1;
-    border:0;
-    border-radius:13px;
-    padding:12px;
-    color:#858995;
-    background:transparent;
-    font-weight:700;
-}
-
-.nav button.active{
-    background:#fff;
-    color:#000;
-}
-
-/* Trang */
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-/* Thẻ */
-
-.card{
-    background:#111319;
-    border:1px solid #252832;
-    border-radius:23px;
-    padding:20px;
-    margin-bottom:16px;
-}
-
-.card-title{
-    font-size:18px;
-    font-weight:800;
-    margin-bottom:7px;
-}
-
-.card-subtitle{
-    color:#777b87;
-    font-size:13px;
-    margin-bottom:16px;
-}
-
-/* Chọn IPA */
-
-.dropzone{
-    min-height:210px;
-    border:2px dashed #393d48;
-    border-radius:20px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:25px;
-}
-
-.dropzone:active{
-    transform:scale(.99);
-}
-
-.drop-icon{
-    width:65px;
-    height:65px;
-    border-radius:20px;
-    background:#1d2028;
-    display:grid;
-    place-items:center;
-    font-size:32px;
-    margin-bottom:12px;
-}
-
-.drop-title{
-    font-weight:800;
-    font-size:17px;
-}
-
-.drop-subtitle{
-    color:#777b87;
-    font-size:13px;
-    margin-top:7px;
-}
-
-input[type=file]{
-    display:none;
-}
-
-/* Tệp */
-
-.file{
-    display:none;
-    align-items:center;
-    gap:13px;
-    padding:14px;
-    margin-top:14px;
-    background:#1a1c23;
-    border-radius:16px;
-}
-
-.file.show{
-    display:flex;
-}
-
-.file-icon{
-    width:46px;
-    height:46px;
-    border-radius:13px;
-    background:#292d37;
-    display:grid;
-    place-items:center;
-    font-size:22px;
-}
-
-.file-info{
-    flex:1;
-    min-width:0;
-}
-
-.file-name{
-    font-weight:750;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-}
-
-.file-size{
-    color:#777b87;
-    font-size:12px;
-    margin-top:4px;
-}
-
-.file-remove{
-    width:38px;
-    height:38px;
-    border:0;
-    border-radius:11px;
-    background:#2b2e37;
-    color:#fff;
-    font-size:20px;
-}
-
-/* Danh sách */
-
-.app-item{
-    display:flex;
-    align-items:center;
-    gap:13px;
-    padding:14px;
-    margin-bottom:10px;
-    border-radius:17px;
-    background:#191b22;
-}
-
-.app-icon{
-    width:50px;
-    height:50px;
-    border-radius:14px;
-    background:#282c35;
-    display:grid;
-    place-items:center;
-    font-size:23px;
-}
-
-.app-info{
-    flex:1;
-    min-width:0;
-}
-
-.app-name{
-    font-weight:750;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-}
-
-.app-meta{
-    color:#777b87;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.small-button{
-    border:0;
-    border-radius:11px;
-    padding:10px 13px;
-    background:#292c35;
-    color:#fff;
-}
-
-/* Thông tin */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.info{
-    background:#1a1c23;
-    border-radius:15px;
-    padding:14px;
-}
-
-.info-label{
-    color:#777b87;
-    font-size:11px;
-}
-
-.info-value{
-    margin-top:6px;
-    font-size:14px;
-    font-weight:700;
-    word-break:break-word;
-}
-
-/* Chứng chỉ */
-
-.certificate{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    background:#1a1c23;
-    padding:14px;
-    border-radius:16px;
-    margin-bottom:14px;
-}
-
-.certificate-icon{
-    width:46px;
-    height:46px;
-    border-radius:13px;
-    background:#292d37;
-    display:grid;
-    place-items:center;
-    font-size:21px;
-}
-
-.certificate-info{
-    flex:1;
-    min-width:0;
-}
-
-.certificate-name{
-    font-weight:750;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.certificate-state{
-    color:#777b87;
-    font-size:12px;
-    margin-top:4px;
-}
-
-/* Nút */
-
-.actions{
-    display:flex;
-    gap:10px;
-}
-
-.button{
-    flex:1;
-    border:0;
-    border-radius:15px;
-    padding:15px;
-    font-weight:800;
-    background:#fff;
-    color:#000;
-}
-
-.button.secondary{
-    background:#252832;
-    color:#fff;
-}
-
-.button:disabled{
-    opacity:.35;
-}
-
-/* Tiến trình */
-
-.progress-box{
-    display:none;
-    margin-top:17px;
-}
-
-.progress-box.show{
-    display:block;
-}
-
-.progress-header{
-    display:flex;
-    justify-content:space-between;
-    color:#969ba8;
-    font-size:12px;
-    margin-bottom:8px;
-}
-
-.progress{
-    height:8px;
-    background:#292c34;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    width:0%;
-    height:100%;
-    background:#fff;
-    transition:.3s;
-}
-
-/* Kết quả */
-
-.result{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    border-radius:16px;
-    background:#1a1c23;
-}
-
-.result.show{
-    display:block;
-}
-
-.result-title{
-    font-weight:800;
-    margin-bottom:10px;
-}
-
-.download{
-    display:block;
-    text-align:center;
-    text-decoration:none;
-    border-radius:14px;
-    padding:14px;
-    background:#fff;
-    color:#000;
-    font-weight:800;
-}
-
-/* Trống */
-
-.empty{
-    padding:50px 20px;
-    text-align:center;
-    color:#777b87;
-}
-
-.empty-icon{
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-/* Điện thoại */
-
-@media(max-width:650px){
-
-    .app{
-        padding:14px;
-    }
-
-    .status{
-        display:none;
-    }
-
-    .title{
-        font-size:20px;
-    }
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-    .actions{
-        flex-direction:column;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>E-Sign 100%</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-touch-callout: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 12px; touch-action: manipulation; }
+        .container { background: #ffffff; padding: 20px; border-radius: 28px; box-shadow: 0 16px 48px rgba(0,0,0,0.08); width: 100%; max-width: 720px; }
+        h2 { color: #0b2239; font-size: 20px; font-weight: 700; margin-bottom: 18px; }
+        .field { margin-bottom: 14px; }
+        .field label { display: block; font-weight: 600; color: #1d3b5c; font-size: 13px; margin-bottom: 4px; }
+        .field input, .field select { width: 100%; padding: 12px 14px; border: 1.5px solid #dce3ed; border-radius: 14px; font-size: 16px; background: #f8faff; }
+        .field input:focus { border-color: #0b2239; outline: none; background: #fff; }
+        .row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .row .field { flex: 1; min-width: 130px; }
+        .canvas-box { background: #f8faff; border: 2px dashed #b8ccdd; border-radius: 18px; padding: 6px; touch-action: none; }
+        canvas { display: block; width: 100%; height: 170px; background: #fff; border-radius: 12px; touch-action: none; cursor: crosshair; }
+        .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+        .toolbar button { background: #e5ebf3; border: none; border-radius: 30px; padding: 8px 18px; font-weight: 500; font-size: 14px; color: #0b2239; touch-action: manipulation; }
+        .toolbar button:active { background: #cdd8e6; }
+        .btn-primary { background: #0b2239; color: #fff; border: none; border-radius: 40px; padding: 14px; font-weight: 600; font-size: 16px; width: 100%; margin-top: 12px; touch-action: manipulation; }
+        .btn-primary:active { background: #1d3b5c; }
+        .btn-outline { background: transparent; border: 1.5px solid #0b2239; color: #0b2239; border-radius: 40px; padding: 12px; font-weight: 500; font-size: 15px; width: 100%; margin-top: 8px; touch-action: manipulation; }
+        .preview-box { border: 1px solid #dce3ed; border-radius: 14px; padding: 12px; min-height: 70px; background: #fafcff; margin-top: 6px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .preview-box img { max-height: 64px; max-width: 100%; border-radius: 6px; }
+        .preview-box .text-sign { font-family: 'Brush Script MT', 'Zapfino', cursive; font-size: 34px; color: #0b2239; }
+        .status { font-size: 13px; color: #1d7a4f; text-align: center; margin-top: 8px; }
+        #fileInput { display: none; }
+        @media (max-width: 480px) { .container { padding: 16px; } .row { flex-direction: column; } }
+    </style>
 </head>
-
 <body>
-
-<div class="app">
-
-<header class="header">
-
-    <div class="brand">
-
-        <div class="logo">S</div>
-
-        <div>
-            <div class="title">iPad Sign</div>
-            <div class="subtitle">
-                Quản lý và ký ứng dụng
-            </div>
-        </div>
-
+<div class="container">
+    <h2>📄 E-Sign Pro</h2>
+    <div class="row">
+        <div class="field"><label>Người ký</label><input type="text" id="signerName" value="Lê Văn C"></div>
+        <div class="field"><label>Chức vụ</label><input type="text" id="signTitle" value="Giám đốc"></div>
     </div>
-
-    <div id="status" class="status">
-        Sẵn sàng
+    <div class="row">
+        <div class="field"><label>Ngày ký</label><input type="date" id="signDate"></div>
+        <div class="field"><label>Định dạng</label>
+            <select id="exportFormat"><option value="png">PNG</option><option value="jpeg">JPEG</option></select>
+        </div>
     </div>
-
-</header>
-
-
-<nav class="nav">
-
-    <button class="active" data-page="home">
-        Trang chính
-    </button>
-
-    <button data-page="apps">
-        Ứng dụng
-    </button>
-
-    <button data-page="sign">
-        Ký IPA
-    </button>
-
-</nav>
-
-
-<!-- Trang chính -->
-
-<section id="home" class="page active">
-
-    <div class="card">
-
-        <div class="card-title">
-            Thêm ứng dụng
+    <div class="field">
+        <label>✍ Vẽ chữ ký (chuột/cảm ứng)</label>
+        <div class="canvas-box"><canvas id="signCanvas" height="170"></canvas></div>
+        <div class="toolbar">
+            <button id="clearBtn">🗑 Xóa</button>
+            <button id="undoBtn">↩ Hoàn tác</button>
+            <button id="genFromNameBtn">✍ Tạo từ tên</button>
+            <button id="downloadBtn">⬇ Tải PNG</button>
         </div>
-
-        <div class="card-subtitle">
-            Chọn tệp IPA từ ứng dụng Tệp trên iPad.
-        </div>
-
-        <label class="dropzone">
-
-            <input
-                id="ipaInput"
-                type="file"
-                accept=".ipa,application/octet-stream">
-
-            <div class="drop-icon">＋</div>
-
-            <div class="drop-title">
-                Chọn tệp IPA
-            </div>
-
-            <div class="drop-subtitle">
-                Chạm vào đây để chọn tệp
-            </div>
-
-        </label>
-
-
-        <div id="file" class="file">
-
-            <div class="file-icon">
-                📦
-            </div>
-
-            <div class="file-info">
-
-                <div
-                    id="fileName"
-                    class="file-name">
-                </div>
-
-                <div
-                    id="fileSize"
-                    class="file-size">
-                </div>
-
-            </div>
-
-            <button
-                id="removeFile"
-                class="file-remove">
-                ×
-            </button>
-
-        </div>
-
     </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            Ứng dụng gần đây
-        </div>
-
-        <div id="recentList"></div>
-
+    <div class="field">
+        <label>Chữ ký đã tạo</label>
+        <div class="preview-box" id="previewBox"><span class="text-sign">(trống)</span></div>
     </div>
-
-</section>
-
-
-<!-- Danh sách -->
-
-<section id="apps" class="page">
-
-    <div class="card">
-
-        <div class="card-title">
-            Thư viện ứng dụng
-        </div>
-
-        <div id="appList"></div>
-
-    </div>
-
-</section>
-
-
-<!-- Ký -->
-
-<section id="sign" class="page">
-
-    <div class="card">
-
-        <div class="card-title">
-            Thông tin IPA
-        </div>
-
-        <div class="info-grid">
-
-            <div class="info">
-                <div class="info-label">Tên tệp</div>
-                <div id="infoName" class="info-value">
-                    Chưa chọn
-                </div>
-            </div>
-
-            <div class="info">
-                <div class="info-label">Dung lượng</div>
-                <div id="infoSize" class="info-value">
-                    --
-                </div>
-            </div>
-
-            <div class="info">
-                <div class="info-label">Định dạng</div>
-                <div class="info-value">
-                    IPA
-                </div>
-            </div>
-
-            <div class="info">
-                <div class="info-label">Trạng thái</div>
-                <div id="infoStatus" class="info-value">
-                    Chưa chọn
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            Chứng chỉ hợp lệ
-        </div>
-
-        <div class="certificate">
-
-            <div class="certificate-icon">
-                🔐
-            </div>
-
-            <div class="certificate-info">
-
-                <div
-                    id="certificateName"
-                    class="certificate-name">
-                    Chưa chọn
-                </div>
-
-                <div
-                    id="certificateState"
-                    class="certificate-state">
-                    Chọn chứng chỉ của bạn
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                id="chooseCertificate"
-                class="button secondary">
-                Chọn chứng chỉ
-            </button>
-
-            <button
-                id="signButton"
-                class="button"
-                disabled>
-                Ký IPA
-            </button>
-
-        </div>
-
-        <input
-            id="certificateInput"
-            type="file"
-            accept=".p12,.mobileprovision">
-
-
-        <div
-            id="progressBox"
-            class="progress-box">
-
-            <div class="progress-header">
-
-                <span id="progressText">
-                    Đang xử lý
-                </span>
-
-                <span id="progressPercent">
-                    0%
-                </span>
-
-            </div>
-
-            <div class="progress">
-
-                <div
-                    id="progressBar"
-                    class="progress-bar">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="result"
-            class="result">
-
-            <div class="result-title">
-                Kết quả
-            </div>
-
-            <div id="resultContent"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
+    <button class="btn-primary" id="exportPdfBtn">⬇ Xuất file PDF (nhúng chữ ký)</button>
+    <button class="btn-outline" id="loadImageBtn">📂 Tải ảnh chữ ký từ thiết bị</button>
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="status" id="statusMsg">✅ Sẵn sàng - không cần tin cậy nhà phát triển</div>
 </div>
-
-
 <script>
-/*
- * Biến trạng thái.
- */
-
-let ipaFile = null;
-let certificateFile = null;
-
-const storedApps =
-    JSON.parse(
-        localStorage.getItem("ipadSignApps") || "[]"
-    );
-
-
-/*
- * Định dạng dung lượng.
- */
-
-function formatSize(bytes){
-
-    if(bytes < 1024)
-        return bytes + " B";
-
-    if(bytes < 1024 * 1024)
-        return (bytes / 1024).toFixed(1) + " KB";
-
-    if(bytes < 1024 * 1024 * 1024)
-        return (bytes / 1024 / 1024).toFixed(1) + " MB";
-
-    return (bytes / 1024 / 1024 / 1024).toFixed(2) + " GB";
-}
-
-
-/*
- * Chuyển trang.
- */
-
-document
-.querySelectorAll(".nav button")
-.forEach(button => {
-
-    button.addEventListener("click",function(){
-
-        document
-        .querySelectorAll(".nav button")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-        this.classList.add("active");
-
-        document
-        .querySelectorAll(".page")
-        .forEach(page =>
-            page.classList.remove("active")
-        );
-
-        document
-        .getElementById(this.dataset.page)
-        .classList.add("active");
-
-    });
-
-});
-
-
-/*
- * Cập nhật trạng thái.
- */
-
-function setStatus(text){
-
-    document
-    .getElementById("status")
-    .textContent = text;
-
-}
-
-
-/*
- * Chọn IPA.
- */
-
-document
-.getElementById("ipaInput")
-.addEventListener("change",function(){
-
-    const file = this.files[0];
-
-    if(!file)
-        return;
-
-    ipaFile = file;
-
-    document
-    .getElementById("file")
-    .classList.add("show");
-
-    document
-    .getElementById("fileName")
-    .textContent = file.name;
-
-    document
-    .getElementById("fileSize")
-    .textContent = formatSize(file.size);
-
-    document
-    .getElementById("infoName")
-    .textContent = file.name;
-
-    document
-    .getElementById("infoSize")
-    .textContent = formatSize(file.size);
-
-    document
-    .getElementById("infoStatus")
-    .textContent = "Đã chọn";
-
-    setStatus("Đã chọn IPA");
-
-    addStoredApp(file);
-
-    updateButton();
-
-});
-
-
-/*
- * Xóa IPA.
- */
-
-document
-.getElementById("removeFile")
-.addEventListener("click",function(){
-
-    ipaFile = null;
-
-    document
-    .getElementById("ipaInput")
-    .value = "";
-
-    document
-    .getElementById("file")
-    .classList.remove("show");
-
-    document
-    .getElementById("infoName")
-    .textContent = "Chưa chọn";
-
-    document
-    .getElementById("infoSize")
-    .textContent = "--";
-
-    document
-    .getElementById("infoStatus")
-    .textContent = "Chưa chọn";
-
-    updateButton();
-
-});
-
-
-/*
- * Lưu danh sách.
- */
-
-function saveApps(){
-
-    localStorage.setItem(
-        "ipadSignApps",
-        JSON.stringify(storedApps)
-    );
-
-}
-
-
-/*
- * Thêm ứng dụng.
- */
-
-function addStoredApp(file){
-
-    const exists =
-        storedApps.some(
-            item => item.name === file.name
-        );
-
-    if(exists)
-        return;
-
-    storedApps.unshift({
-
-        name:file.name,
-
-        size:file.size,
-
-        date:new Date()
-        .toLocaleString("vi-VN")
-
-    });
-
-    if(storedApps.length > 30)
-        storedApps.pop();
-
-    saveApps();
-
-    renderApps();
-
-}
-
-
-/*
- * Hiển thị ứng dụng.
- */
-
-function renderApps(){
-
-    const list =
-        document.getElementById("appList");
-
-    const recent =
-        document.getElementById("recentList");
-
-
-    if(storedApps.length === 0){
-
-        const empty = `
-            <div class="empty">
-                <div class="empty-icon">📱</div>
-                Chưa có ứng dụng
+    (function(){
+        const canvas = document.getElementById('signCanvas');
+        const ctx = canvas.getContext('2d');
+        const preview = document.getElementById('previewBox');
+        const status = document.getElementById('statusMsg');
+        const signerName = document.getElementById('signerName');
+        const signDate = document.getElementById('signDate');
+        const exportFormat = document.getElementById('exportFormat');
+        if(!signDate.value){ const d=new Date(); signDate.value=d.toISOString().split('T')[0]; }
+
+        let paths=[], currentPath=[], isDrawing=false, lastX=0, lastY=0;
+        let signatureDataURL = null; // lưu ảnh chữ ký cuối cùng
+
+        function resizeCanvas(){
+            const rect=canvas.getBoundingClientRect();
+            canvas.width=rect.width*window.devicePixelRatio;
+            canvas.height=170*window.devicePixelRatio;
+            canvas.style.width=rect.width+'px';
+            canvas.style.height='170px';
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            redraw();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function redraw(){
+            const w=canvas.width/window.devicePixelRatio, h=170;
+            ctx.clearRect(0,0,w,h);
+            ctx.lineWidth=3; ctx.strokeStyle='#0b2239'; ctx.lineCap='round'; ctx.lineJoin='round';
+            for(let p of paths){ if(p.length<2) continue;
+                ctx.beginPath(); ctx.moveTo(p[0].x, p[0].y);
+                for(let i=1;i<p.length;i++) ctx.lineTo(p[i].x, p[i].y);
+                ctx.stroke();
+            }
+            updatePreview();
+        }
+
+        function getPos(e){
+            const rect=canvas.getBoundingClientRect();
+            const scaleX=canvas.width/window.devicePixelRatio/rect.width;
+            const scaleY=170/rect.height;
+            let cx, cy;
+            if(e.touches){
+                cx=(e.touches[0].clientX-rect.left)*scaleX;
+                cy=(e.touches[0].clientY-rect.top)*scaleY;
+            } else {
+                cx=(e.clientX-rect.left)*scaleX;
+                cy=(e.clientY-rect.top)*scaleY;
+            }
+            return {x:Math.min(Math.max(cx,0),canvas.width/window.devicePixelRatio), y:Math.min(Math.max(cy,0),170)};
+        }
+
+        function startDraw(e){ e.preventDefault(); isDrawing=true; const p=getPos(e); lastX=p.x; lastY=p.y; currentPath=[{x:p.x,y:p.y}]; }
+        function draw(e){ e.preventDefault(); if(!isDrawing) return; const p=getPos(e); currentPath.push({x:p.x,y:p.y}); redraw(); }
+        function endDraw(e){ e.preventDefault(); if(isDrawing && currentPath.length>1){ paths.push([...currentPath]); } else if(currentPath.length===1){ paths.push([...currentPath]); } isDrawing=false; currentPath=[]; updatePreview(); }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw);
+        canvas.addEventListener('touchstart', startDraw, {passive:false});
+        canvas.addEventListener('touchmove', draw, {passive:false});
+        canvas.addEventListener('touchend', endDraw, {passive:false});
+        canvas.addEventListener('touchcancel', endDraw, {passive:false});
+
+        document.getElementById('clearBtn').addEventListener('click', function(){ paths=[]; signatureDataURL=null; redraw(); status.innerText='🗑 Đã xóa'; });
+        document.getElementById('undoBtn').addEventListener('click', function(){ if(paths.length>0){ paths.pop(); redraw(); status.innerText='↩ Hoàn tác'; } });
+
+        document.getElementById('genFromNameBtn').addEventListener('click', function(){
+            const name=signerName.value.trim() || 'Ký tên';
+            // tạo chữ ký dạng ảnh từ tên
+            const offscreen=document.createElement('canvas');
+            offscreen.width=600; offscreen.height=200;
+            const octx=offscreen.getContext('2d');
+            octx.fillStyle='#ffffff'; octx.fillRect(0,0,600,200);
+            octx.font='bold 72px "Brush Script MT", "Zapfino", cursive';
+            octx.fillStyle='#0b2239';
+            octx.textAlign='center'; octx.textBaseline='middle';
+            octx.fillText(name, 300, 110);
+            // vẽ đường gạch chân mờ
+            octx.strokeStyle='#0b2239'; octx.lineWidth=2; octx.globalAlpha=0.3;
+            octx.beginPath(); octx.moveTo(80,160); octx.lineTo(520,160); octx.stroke();
+            octx.globalAlpha=1.0;
+            signatureDataURL = offscreen.toDataURL('image/png');
+            // hiển thị preview
+            preview.innerHTML = `<img src="${signatureDataURL}" alt="chữ ký">`;
+            // cũng vẽ lên canvas để xác nhận
+            paths = [];
+            // vẽ chữ ký dạng mô phỏng lên canvas (đường cong đơn giản)
+            const w=canvas.width/window.devicePixelRatio;
+            const pts=[];
+            for(let i=0;i<60;i++){ let t=i/59; let x=50+t*(w-100); let y=85+20*Math.sin(t*8+1.2)+8*Math.cos(t*5); pts.push({x,y}); }
+            paths.push(pts);
+            redraw();
+            status.innerText='✍ Đã tạo từ tên: '+name;
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', function(){
+            if(!signatureDataURL){
+                // nếu chưa có, lấy từ canvas
+                const w=canvas.width/window.devicePixelRatio;
+                const off=document.createElement('canvas');
+                off.width=w*2; off.height=340;
+                const octx=off.getContext('2d');
+                octx.fillStyle='#ffffff'; octx.fillRect(0,0,off.width,off.height);
+                octx.drawImage(canvas, 0, 0, off.width, off.height);
+                signatureDataURL = off.toDataURL('image/'+exportFormat.value);
+            }
+            const link=document.createElement('a');
+            link.download='chữ_ky.'+exportFormat.value;
+            link.href=signatureDataURL;
+            link.click();
+            status.innerText='⬇ Đã tải '+exportFormat.value.toUpperCase();
+        });
+
+        document.getElementById('exportPdfBtn').addEventListener('click', function(){
+            // tạo PDF giả lập với chữ ký nhúng
+            if(!signatureDataURL){
+                const w=canvas.width/window.devicePixelRatio;
+                const off=document.createElement('canvas');
+                off.width=w*2; off.height=340;
+                const octx=off.getContext('2d');
+                octx.fillStyle='#ffffff'; octx.fillRect(0,0,off.width,off.height);
+                octx.drawImage(canvas, 0, 0, off.width, off.height);
+                signatureDataURL = off.toDataURL('image/png');
+            }
+            const name=signerName.value.trim() || 'Người ký';
+            const title=signTitle.value.trim() || 'Chức vụ';
+            const date=signDate.value || '2026-01-01';
+            const htmlContent = `
+            <html><head><meta charset="UTF-8"><title>Hợp đồng - E-Sign</title>
+            <style>body{font-family:Arial;padding:40px;max-width:800px;margin:auto;background:#fff;}
+            h1{color:#0b2239;border-bottom:2px solid #0b2239;padding-bottom:10px;}
+            .sign-block{margin-top:40px;border:1px solid #ccc;padding:20px;border-radius:12px;background:#fafcff;text-align:center;}
+            img{max-height:100px;max-width:100%;}
+            .info{font-size:14px;color:#555;margin-top:8px;}
+            </style></head>
+            <body>
+            <h1>📄 VĂN BẢN ĐÃ KÝ</h1>
+            <p><strong>Người ký:</strong> ${name}</p>
+            <p><strong>Chức vụ:</strong> ${title}</p>
+            <p><strong>Ngày ký:</strong> ${date}</p>
+            <div class="sign-block">
+                <img src="${signatureDataURL}" alt="chữ ký">
+                <div class="info">✓ Chữ ký số hợp lệ (mô phỏng)</div>
             </div>
-        `;
-
-        list.innerHTML = empty;
-
-        recent.innerHTML = `
-            <div class="empty">
-                <div class="empty-icon">📦</div>
-                Chưa có IPA
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        storedApps
-        .map((item,index) => `
-
-            <div class="app-item">
-
-                <div class="app-icon">
-                    📦
-                </div>
-
-                <div class="app-info">
-
-                    <div class="app-name">
-                        ${escapeHTML(item.name)}
-                    </div>
-
-                    <div class="app-meta">
-                        ${formatSize(item.size)}
-                        ·
-                        ${escapeHTML(item.date)}
-                    </div>
-
-                </div>
-
-                <button
-                    class="small-button"
-                    onclick="deleteApp(${index})">
-                    Xóa
-                </button>
-
-            </div>
-
-        `)
-        .join("");
-
-
-    recent.innerHTML =
-        storedApps
-        .slice(0,5)
-        .map(item => `
-
-            <div class="app-item">
-
-                <div class="app-icon">
-                    📦
-                </div>
-
-                <div class="app-info">
-
-                    <div class="app-name">
-                        ${escapeHTML(item.name)}
-                    </div>
-
-                    <div class="app-meta">
-                        ${formatSize(item.size)}
-                    </div>
-
-                </div>
-
-            </div>
-
-        `)
-        .join("");
-
-}
-
-
-/*
- * Xóa ứng dụng khỏi danh sách.
- */
-
-function deleteApp(index){
-
-    storedApps.splice(index,1);
-
-    saveApps();
-
-    renderApps();
-
-}
-
-
-/*
- * Bảo vệ nội dung hiển thị.
- */
-
-function escapeHTML(text){
-
-    return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/*
- * Chọn chứng chỉ.
- */
-
-document
-.getElementById("chooseCertificate")
-.addEventListener("click",function(){
-
-    document
-    .getElementById("certificateInput")
-    .click();
-
-});
-
-
-document
-.getElementById("certificateInput")
-.addEventListener("change",function(){
-
-    const file = this.files[0];
-
-    if(!file)
-        return;
-
-    certificateFile = file;
-
-    document
-    .getElementById("certificateName")
-    .textContent = file.name;
-
-    document
-    .getElementById("certificateState")
-    .textContent = "Đã chọn";
-
-    updateButton();
-
-});
-
-
-/*
- * Kích hoạt nút ký.
- */
-
-function updateButton(){
-
-    document
-    .getElementById("signButton")
-    .disabled =
-        !(ipaFile && certificateFile);
-
-}
-
-
-/*
- * Gửi IPA tới máy chủ ký.
- *
- * Máy chủ cần sử dụng chứng chỉ hợp lệ.
- */
-
-document
-.getElementById("signButton")
-.addEventListener("click",async function(){
-
-    if(!ipaFile || !certificateFile)
-        return;
-
-
-    const progressBox =
-        document.getElementById("progressBox");
-
-    const progressBar =
-        document.getElementById("progressBar");
-
-    const progressText =
-        document.getElementById("progressText");
-
-    const progressPercent =
-        document.getElementById("progressPercent");
-
-    const result =
-        document.getElementById("result");
-
-    const resultContent =
-        document.getElementById("resultContent");
-
-
-    progressBox.classList.add("show");
-
-    result.classList.remove("show");
-
-    progressText.textContent =
-        "Đang gửi tệp";
-
-    progressBar.style.width = "20%";
-
-    progressPercent.textContent = "20%";
-
-
-    const formData = new FormData();
-
-    formData.append("ipa",ipaFile);
-
-    formData.append(
-        "certificate",
-        certificateFile
-    );
-
-
-    try{
-
-        /*
-         * Thay đường dẫn này bằng máy chủ ký
-         * của bạn.
-         */
-
-        const response =
-            await fetch("/api/sign",{
-
-                method:"POST",
-
-                body:formData
-
-            });
-
-
-        progressText.textContent =
-            "Đang nhận kết quả";
-
-        progressBar.style.width = "70%";
-
-        progressPercent.textContent = "70%";
-
-
-        if(!response.ok)
-            throw new Error(
-                "Máy chủ ký trả về lỗi."
-            );
-
-
-        const blob =
-            await response.blob();
-
-
-        const downloadURL =
-            URL.createObjectURL(blob);
-
-
-        progressBar.style.width = "100%";
-
-        progressPercent.textContent = "100%";
-
-        progressText.textContent =
-            "Hoàn tất";
-
-
-        resultContent.innerHTML = `
-
-            <a
-                class="download"
-                href="${downloadURL}"
-                download="ung-dung-da-ky.ipa">
-
-                Tải IPA đã ký
-
-            </a>
-
-        `;
-
-        result.classList.add("show");
-
-        document
-        .getElementById("infoStatus")
-        .textContent = "Đã ký";
-
-        setStatus("Hoàn tất");
-
-
-    }catch(error){
-
-        progressBar.style.width = "0%";
-
-        progressPercent.textContent = "0%";
-
-        progressText.textContent =
-            "Chưa kết nối máy chủ";
-
-
-        resultContent.innerHTML = `
-
-            <div style="
-                color:#969ba8;
-                line-height:1.6">
-
-                Chưa có máy chủ ký tại
-                <b>/api/sign</b>.
-
-                <br><br>
-
-                Giao diện đã hoạt động.
-                Để ký IPA thực tế, cần kết nối
-                với máy chủ sử dụng chứng chỉ
-                hợp lệ.
-
-            </div>
-
-        `;
-
-        result.classList.add("show");
-
-        setStatus("Sẵn sàng");
-
-    }
-
-});
-
-
-/*
- * Khởi tạo.
- */
-
-renderApps();
-
+            <p style="margin-top:30px;font-size:12px;color:#999;">Tạo bởi E-Sign Pro - không cần tin cậy nhà phát triển</p>
+            </body></html>
+            `;
+            const blob = new Blob([htmlContent], {type:'application/pdf'});
+            // dùng trình duyệt để in ra PDF thật
+            const win = window.open('', '_blank');
+            win.document.write(htmlContent);
+            win.document.close();
+            win.focus();
+            win.print(); // cho phép lưu PDF qua "Lưu dưới dạng PDF"
+            status.innerText='📄 Đã mở PDF - chọn "Lưu dưới dạng PDF" để tải';
+        });
+
+        document.getElementById('loadImageBtn').addEventListener('click', function(){
+            document.getElementById('fileInput').click();
+        });
+        document.getElementById('fileInput').addEventListener('change', function(e){
+            const file=e.target.files[0];
+            if(!file) return;
+            const reader=new FileReader();
+            reader.onload=function(ev){
+                const img=new Image();
+                img.onload=function(){
+                    const off=document.createElement('canvas');
+                    off.width=600; off.height=200;
+                    const octx=off.getContext('2d');
+                    octx.fillStyle='#ffffff'; octx.fillRect(0,0,600,200);
+                    const ratio=Math.min(600/img.width, 200/img.height);
+                    const w=img.width*ratio, h=img.height*ratio;
+                    octx.drawImage(img, (600-w)/2, (200-h)/2, w, h);
+                    signatureDataURL = off.toDataURL('image/png');
+                    preview.innerHTML = `<img src="${signatureDataURL}" alt="chữ ký">`;
+                    // vẽ lên canvas luôn
+                    paths=[];
+                    const pts=[];
+                    for(let i=0;i<30;i++){ let t=i/29; pts.push({x:50+t*(canvas.width/window.devicePixelRatio-100), y:85+10*Math.sin(t*10)}); }
+                    paths.push(pts);
+                    redraw();
+                    status.innerText='📂 Đã tải ảnh chữ ký';
+                };
+                img.src=ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function updatePreview(){
+            if(paths.length===0){ preview.innerHTML='<span class="text-sign">(trống)</span>'; return; }
+            const w=canvas.width/window.devicePixelRatio;
+            const off=document.createElement('canvas');
+            off.width=w*2; off.height=340;
+            const octx=off.getContext('2d');
+            octx.fillStyle='#ffffff'; octx.fillRect(0,0,off.width,off.height);
+            octx.drawImage(canvas, 0, 0, off.width, off.height);
+            const data=off.toDataURL('image/png');
+            signatureDataURL=data;
+            preview.innerHTML=`<img src="${data}" alt="chữ ký">`;
+        }
+
+        setTimeout(resizeCanvas, 50);
+    })();
 </script>
-
 </body>
 </html>
